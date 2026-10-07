@@ -30,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
               Times Table Turbo
             </span>
             <span className="text-[11px] font-medium text-slate-500 hidden sm:block">
-              Primary 3 Math Fluency · Tables of 6, 7, 8 & 9
+              Primary 3 Math Fluency · Tables of 6, 7, 8 & 9 (Numbers 1–10)
             </span>
           </div>
         </div>

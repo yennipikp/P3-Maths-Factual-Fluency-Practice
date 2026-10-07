@@ -181,11 +181,11 @@ export default function App() {
             Times Table Turbo · Primary 3 Multiplication Fluency Practice
           </p>
           <div className="flex items-center gap-2">
-            <span>Tables: 6, 7, 8, 9 & Mix</span>
+            <span>Tables: 6, 7, 8, 9 & Mix (1–10)</span>
             <span aria-hidden="true">·</span>
             <span>60 Questions</span>
             <span aria-hidden="true">·</span>
-            <span>2-Minute Timer</span>
+            <span>2-Minute Set Timer</span>
           </div>
         </div>
       </footer>

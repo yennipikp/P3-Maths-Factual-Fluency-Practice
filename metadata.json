@@ -1,6 +1,6 @@
 {
   "name": "Times Table Turbo - Primary 3 Math Fluency",
-  "description": "Factual fluency multiplication practice for Primary 3 students covering tables of 6, 7, 8, and 9 with a 60-question 2-minute timer challenge.",
+  "description": "Factual fluency multiplication practice for Primary 3 students covering tables of 6, 7, 8, and 9 for numbers 1 to 10 with a 60-question 2-minute timer challenge.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

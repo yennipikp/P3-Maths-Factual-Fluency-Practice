@@ -278,7 +278,7 @@ export const TableSelector: React.FC<TableSelectorProps> = ({
           </h3>
 
           <p className="text-xs sm:text-sm text-slate-300 max-w-lg">
-            You will have a single <strong className="text-amber-300">2-minute timer for the entire 60-question practice set</strong> (not per question). Type your answer and press <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-xs text-slate-200">Enter</kbd> or tap <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-xs text-slate-200">Next</kbd> to work through as many questions as you can!
+            You will have a single <strong className="text-amber-300">2-minute timer for the entire 60-question practice set</strong> (not per question). Questions only cover <strong className="text-cyan-300">numbers from 1 to 10</strong>. Type your answer and press <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-xs text-slate-200">Enter</kbd> or tap <kbd className="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-xs text-slate-200">Next</kbd> to work through as many questions as you can!
           </p>
         </div>
 

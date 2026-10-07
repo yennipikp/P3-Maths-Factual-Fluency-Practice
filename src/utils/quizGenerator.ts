@@ -9,22 +9,26 @@ const MULTIPLICATION_TIPS: Record<string, string> = {
   '8x6': '8 × 6 = 48: "Six and eight went to skate, came back home at 48!"',
   '6x9': '6 × 9 = 54: Digits sum to 9 (5 + 4 = 9), and 5 is one less than 6!',
   '9x6': '9 × 6 = 54: Digits sum to 9 (5 + 4 = 9), and 5 is one less than 6!',
-  '6x12': '6 × 12 = 72: Split into (6 × 10) + (6 × 2) = 60 + 12 = 72!',
+  '6x10': '6 × 10 = 60: Multiplying by 10 is easy! Just place a 0 after 6!',
+  '10x6': '10 × 6 = 60: Multiplying by 10 is easy! Just place a 0 after 6!',
   // Table of 7
   '7x7': '7 × 7 = 49: "Seven times seven is forty-nine, football players on the line!"',
   '7x8': '7 × 8 = 56: Sequence rule: count 5, 6, 7, 8 → 56 = 7 × 8!',
   '8x7': '8 × 7 = 56: Sequence rule: count 5, 6, 7, 8 → 56 = 8 × 7!',
   '7x9': '7 × 9 = 63: 7 × 10 is 70, minus 7 is 63! (6 + 3 = 9)',
   '9x7': '9 × 7 = 63: Digits sum to 9 (6 + 3 = 9), and 6 is one less than 7!',
-  '7x12': '7 × 12 = 84: Split into (7 × 10) + (7 × 2) = 70 + 14 = 84!',
+  '7x10': '7 × 10 = 70: Just add a 0 to 7 to get 70!',
+  '10x7': '10 × 7 = 70: Just add a 0 to 7 to get 70!',
   // Table of 8
   '8x8': '8 × 8 = 64: "I ate and ate \'til I got sick on the floor, eight times eight is sixty-four!"',
   '8x9': '8 × 9 = 72: 8 × 10 is 80, minus 8 is 72! (7 + 2 = 9)',
   '9x8': '9 × 8 = 72: Digits sum to 9 (7 + 2 = 9), and 7 is one less than 8!',
-  '8x12': '8 × 12 = 96: Split into (8 × 10) + (8 × 2) = 80 + 16 = 96!',
+  '8x10': '8 × 10 = 80: Just add a 0 to 8 to get 80!',
+  '10x8': '10 × 8 = 80: Just add a 0 to 8 to get 80!',
   // Table of 9
   '9x9': '9 × 9 = 81: 9 × 10 is 90, minus 9 is 81! (8 + 1 = 9)',
-  '9x12': '9 × 12 = 108: Split into (9 × 10) + (9 × 2) = 90 + 18 = 108!',
+  '9x10': '9 × 10 = 90: Just add a 0 to 9 to get 90!',
+  '10x9': '10 × 9 = 90: Just add a 0 to 9 to get 90!',
 };
 
 export function getQuestionTip(a: number, b: number): string {
@@ -33,6 +37,11 @@ export function getQuestionTip(a: number, b: number): string {
   if (MULTIPLICATION_TIPS[key1]) return MULTIPLICATION_TIPS[key1];
   if (MULTIPLICATION_TIPS[key2]) return MULTIPLICATION_TIPS[key2];
 
+  // Rule of 10 fallback
+  if (a === 10 || b === 10) {
+    const other = a === 10 ? b : a;
+    return `Rule of 10: ${other} × 10 = ${other * 10}. Simply append a 0 to ${other}!`;
+  }
   // Rule of 9 fallback
   if (a === 9 || b === 9) {
     const other = a === 9 ? b : a;
@@ -71,11 +80,14 @@ export function generate60Questions(selection: TableSelection): Question[] {
   const TOTAL_QUESTIONS = 60;
   const rawPairs: Array<{ table: number; a: number; b: number }> = [];
 
+  // Exclude 11 and 12: only numbers from 1 to 10
+  const FACTORS_1_TO_10 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
   if (selection !== 'mix') {
     const tableNum = parseInt(selection, 10);
-    // Factors 1 through 12 repeated 5 times = 60 questions
-    for (let repeat = 0; repeat < 5; repeat++) {
-      for (let factor = 1; factor <= 12; factor++) {
+    // Factors 1 through 10 repeated 6 times = exactly 60 questions!
+    for (let repeat = 0; repeat < 6; repeat++) {
+      for (const factor of FACTORS_1_TO_10) {
         // Randomize order: factor * tableNum vs tableNum * factor
         const isSwapped = Math.random() > 0.5;
         rawPairs.push({
@@ -86,16 +98,15 @@ export function generate60Questions(selection: TableSelection): Question[] {
       }
     }
   } else {
-    // Mix: tables 6, 7, 8, 9
+    // Mix: tables 6, 7, 8, 9 (factors strictly 1 to 10)
     // 60 questions / 4 tables = 15 questions per table
     const tables = [6, 7, 8, 9];
     tables.forEach((t) => {
-      // 12 base factors (1..12) plus 3 extra random factors from 1..12 = 15 questions
-      const baseFactors = Array.from({ length: 12 }, (_, i) => i + 1);
-      const extraFactors = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]).slice(0, 3);
-      const factors = [...baseFactors, ...extraFactors];
+      // 10 base factors (1..10) plus 5 extra random factors from 1..10 = 15 questions per table
+      const extraFactors = shuffle([...FACTORS_1_TO_10]).slice(0, 5);
+      const factorsForTable = [...FACTORS_1_TO_10, ...extraFactors];
 
-      factors.forEach((f) => {
+      factorsForTable.forEach((f) => {
         const isSwapped = Math.random() > 0.5;
         rawPairs.push({
           table: t,
@@ -120,7 +131,7 @@ export function generate60Questions(selection: TableSelection): Question[] {
     }
   }
 
-  // Ensure exactly 60
+  // Ensure exactly 60 questions
   shuffled = shuffled.slice(0, TOTAL_QUESTIONS);
 
   return shuffled.map((item, index) => {

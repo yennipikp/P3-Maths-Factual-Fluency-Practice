@@ -45,7 +45,7 @@ export const MultiplicationChartModal: React.FC<MultiplicationChartModalProps> =
   };
 
   const currentTableNum = parseInt(activeTab, 10);
-  const facts = Array.from({ length: 12 }, (_, i) => {
+  const facts = Array.from({ length: 10 }, (_, i) => {
     const factor = i + 1;
     return {
       factor,
